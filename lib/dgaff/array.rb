@@ -143,4 +143,9 @@ class Array
     end
     string
   end
+
+  def accumulate
+    sum = 0
+    self.map{|x| sum += x}
+  end
 end
