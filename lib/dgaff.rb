@@ -1,5 +1,5 @@
 require "dgaff/version"
-require 'lib/array'
+require File.expand_path('../dgaff/array', __FILE__)
 GG = "HELLO"
 module Dgaff
   # Your code goes here...
