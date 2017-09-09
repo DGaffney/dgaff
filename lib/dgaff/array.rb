@@ -234,4 +234,29 @@ class Array
     end
     averaged
   end
+
+  def elbow
+    elbow_cutoff
+  end
+
+  def elbow_cutoff
+    frequencies = self.counts
+    distances = {}
+    frequencies.each_pair do |insider_score, count|
+      translated_x = insider_score/frequencies.keys.max.to_f
+      translated_y = 1-insider_score/frequencies.keys.max.to_f
+      index = frequencies.keys.sort.index(insider_score)
+      expected_x = index/frequencies.length.to_f
+      expected_y = 1-index/frequencies.length.to_f
+      distances[insider_score] = Math.sqrt((translated_x-expected_x)**2+(translated_y-expected_y)**2)
+    end
+    elbow = distances.sort_by{|k,v| v}.last
+    return 0 if elbow.nil?
+    return elbow.first
+  end
+  
+  def pareto_cutoff
+    #our world is a bit more unfair. 0.8 moved to 0.9.
+    self.percentile(0.9)
+  end
 end
