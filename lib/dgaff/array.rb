@@ -226,4 +226,12 @@ class Array
     sum = 0
     self.map{|x| sum += x}
   end
+  
+  def rolling_average
+    averaged = []
+    self.accumulate.each_with_index do |el, i|
+      averaged << el/(i+1).to_f
+    end
+    averaged
+  end
 end
